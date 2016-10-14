@@ -5,6 +5,11 @@ var telegramToken = "282721404:AAEceceIPunZtUjVZ1bqMI_t8RdY8h1uWUU";
 var Q = require('Q');
 var request = Q.denodeify(require("request"));
 
+var NodeGeocoder = require('node-geocoder');
+
+//OpenCage GeoCoder key:
+//2a008f6471747f7cfa454ebd3f7120ba
+
 var options = {
   polling: {
     interval: 5000,
@@ -22,7 +27,7 @@ bot.onText(/^\/echo\s(.+)/i, function (msg, match) {
 });
 
 bot.onText(/\/weather (.+)/, function (msg, match) {
-  var fromId = msg.from.id; // get the id, of who is sending the message
+  var fromId = msg.chat.id; // get the id, of who is sending the message
   var postcode = match[1];
   getWeatherData(postcode)
   .then(function(data){
